@@ -27,9 +27,11 @@ export class AutenticacionService {
 			})
 		);
 	}
+	
 	get tokenAutorizado() {
 		return localStorage.getItem('token');
 	}
+	
 	get usuarioLogueado() {
 		return JSON.parse(localStorage.getItem('usuario'));
 	}

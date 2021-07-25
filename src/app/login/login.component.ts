@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { AutenticacionService } from '../services/autenticacion.service';
 import { DominioService } from '../services/dominio.service';
 
@@ -18,13 +19,13 @@ export class LoginComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private servicioAutenticacion: AutenticacionService,
 		private servicioDominio: DominioService,
-		private router : Router
+		private router: Router
 	) { }
 
 	ngOnInit() {
 		this.loginForm = this.formBuilder.group({
 			usuario: ['', [Validators.required, Validators.minLength(4)]],
-			password: ['', Validators.required]
+			password: ['', [Validators.required, Validators.minLength(5)]]
 		});
 	}
 
@@ -40,6 +41,16 @@ export class LoginComponent implements OnInit {
 			this.router.navigate(['inicio']);
 		}, (error) => {
 			console.log(error);
+			if (error.status === 401) {
+				console.log("Contrseña erronea");
+				Swal.fire({
+					icon: 'error',
+					title: 'Error de inicio de sesion',
+					text: 'La contraseña o el usuario ingresados son incorrectos!',
+					confirmButtonText: 'Aceptar',
+					confirmButtonColor: '#0D6EFD',
+				})
+			}
 		});
 	}
 
