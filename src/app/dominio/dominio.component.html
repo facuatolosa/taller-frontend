@@ -1,0 +1,42 @@
+<app-header></app-header>
+<div class="container">
+	<h1>Dominios</h1>
+	<form [formGroup]="filtrarDominiosForm">
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" placeholder="Ingrese su búsqueda..."  (keyup)="keyPress($event)"
+				formControlName="filtro">
+			<button class="btn btn-outline-secondary" type="button" (click)="filtrar()" id="button-addon1">Buscar</button>
+			<button class="btn btn-outline-danger" type="button" (click)="limpiar()" id="button-addon1">Limpiar</button>
+			<button class="btn btn-success" type="button" (click)="nuevoDominio()" id="button-addon1">Nuevo</button>
+		</div>
+	</form>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col" (click)="ordenar('nombre')">Nombre Dominio <i class="fas" [ngClass]="{'fa-chevron-down' : orderNombreDesc !== undefined && orderNombreDesc,'fa-chevron-up' : orderNombreDesc !== undefined && !orderNombreDesc }"></i> </th>
+				<th scope="col">Fecha Creación</th>
+				<th scope="col">Acciones</th>
+			</tr>
+
+			<tr>
+				<th scope="col"></th>
+				<th scope="col"><input class="form-control"></th>
+				<th scope="col">
+					<input class="form-control" type="date">
+					<input class="form-control" type="date">
+				</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let d of dominios">
+				<th scope="row">{{d.id}}</th>
+				<td>{{d.nombreDominio}}</td>
+				<td [ngClass]="{'table-primary' : d.id % 2 === 0}">{{d.fechaCreacion | date : 'dd/MM/yyyy HH:mm'}}</td>
+				<td><button type="button" class="btn btn-primary" (click)="ver(d.id)">Ver</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<app-footer></app-footer>
