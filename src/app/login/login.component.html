@@ -1,44 +1,55 @@
-<div class="container">
-	<p></p>
-    <h2 style="text-align: center;"><b>Login</b></h2>
-	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-		<!-- Directiva para enviar el form -->
-		<!-- Los paréntesis y corchetes se utilizan para el bindeo de los componentes con el HTML -->
-		<div class="container" style="width: 50%; vertical-align: middle;">
-			<div class="form-group">
-				<label for="usuario">Usuario</label>
-				<input type="text" formControlName="usuario" class="form-control"
-					[ngClass]="{ 'is-invalid' : enviado && loginForm.controls.usuario.errors }">
-				<div *ngIf="enviado && loginForm.controls.usuario.errors" class="invalid-feedback">
-					<div *ngIf="loginForm.controls.usuario.errors.required">Debe ingresar su nombre de usuario</div>
-					<div *ngIf="loginForm.controls.usuario.errors.minlength">Debe contener al menos
-						{{loginForm.controls.usuario.errors.minlength.requiredLength}}</div>
+<body>
+	<div class="modal-dialog" style="align-items: center;">
+		<div class="col-sm-8 main-section">
+			<div class="modal-content">
+				<div class="container">
+					<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+						<!-- Directiva para enviar el form -->
+						<!-- Los paréntesis y corchetes se utilizan para el bindeo de los componentes con el HTML -->
+						<div class="col-12 user-img">
+							<img src="assets/img/user-icon.png" th:src="@{assets/img/user-icon.png}" />
+						</div>
+						<h2 style="text-align: center;"><b>Login</b></h2>
+						<div class="container" style="vertical-align: middle;">
+							<p></p>
+							<div class="form-group" id="user-group">
+								<label for="usuario"><i class="fas fa-user-alt"></i> Usuario</label>
+								<input type="text" placeholder="Ingrese su nombre de usuario" formControlName="usuario"
+									class="form-control" [ngClass]="{ 'is-invalid' : enviado && loginForm.controls.usuario.errors }">
+								<div *ngIf="enviado && loginForm.controls.usuario.errors" class="invalid-feedback">
+									<div *ngIf="loginForm.controls.usuario.errors.required">Debe ingresar su nombre de usuario</div>
+									<div *ngIf="loginForm.controls.usuario.errors.minlength">Debe contener al menos
+										{{loginForm.controls.usuario.errors.minlength.requiredLength}}</div>
+								</div>
+							</div>
+							<div class="form-group" id="password-group">
+								<label for="password"><i class="fas fa-key"></i> Contraseña</label>
+								<input type="password" placeholder="Ingrese su contraseña" formControlName="password" class="form-control"
+									[ngClass]="{ 'is-invalid' : enviado && loginForm.controls.password.errors }">
+								<div *ngIf="enviado && loginForm.controls.password.errors" class="invalid-feedback">
+									<div *ngIf="loginForm.controls.password.errors.required">Debe ingresar una contraseña</div>
+									<div *ngIf="loginForm.controls.password.errors.minlength">La contraseña debe contener al menos 
+										{{loginForm.controls.password.errors.minlength.requiredLength}}</div>
+								</div>
+							</div>
+							<p></p>
+							<div class="btn-toolbar" style="justify-content: center; display: flex;" role="toolbar"
+								aria-label="Toolbar with button groups">
+								<div class="btn-group me-2" style="align-content: center;">
+									<button class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Ingresar</button>
+								</div>
+								<div class="btn-group me-2" style="align-content: center;">
+									<button class="btn btn-secondary"><i class="fas fa-user-alt"></i> Registrar</button>
+								</div>
+							</div>
+							<p></p>
+						</div>
+						<!-- {{loginForm.controls.password.errors | json}} -->
+					</form>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="password">Contraseña</label>
-				<input type="password" formControlName="password" class="form-control"
-					[ngClass]="{ 'is-invalid' : enviado && loginForm.controls.password.errors }">
 
-				<div *ngIf="enviado && loginForm.controls.password.errors" class="invalid-feedback">
-					<div *ngIf="loginForm.controls.password.errors.required">Debe ingresar una contraseña</div>
-					<div *ngIf="loginForm.controls.password.errors.minlength">La contraseña debe contener al menos
-						{{loginForm.controls.password.errors.minlength.requiredLength}}</div>
-				</div>
-			</div>
-			<p></p>
-			<div class="btn-toolbar" style="justify-content: center; display: flex;" role="toolbar" aria-label="Toolbar with button groups" >
-				<div class="btn-group me-2" style="align-content: center;">
-					<button class="btn btn-primary">Ingresar</button>
-				</div>
-				<div class="btn-group me-2" style="align-content: center;">
-					<button class="btn btn-secondary">Registrar</button>
-				</div>
 			</div>
 		</div>
-		<!-- {{loginForm.controls.password.errors | json}} -->
-
-	</form>
-
-</div>
-<app-footer></app-footer>
+	</div>
+	<app-footer></app-footer>
+</body>
