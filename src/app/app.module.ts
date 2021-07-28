@@ -12,7 +12,8 @@ import { appRoutingModule } from './rutas/rutas-routing.module';
 import { InicioComponent } from './inicio/inicio.component';
 import { DominioComponent } from './dominio/dominio.component';
 import { DominioNuevoComponent } from './dominio/dominio-nuevo/dominio-nuevo.component';
-
+import { ReparacionComponent } from './reparacion/reparacion.component';
+import { ReparacionNuevaComponent } from './reparacion/reparacion-nueva/reparacion-nueva.component';
 
 
 @NgModule({
@@ -24,6 +25,8 @@ import { DominioNuevoComponent } from './dominio/dominio-nuevo/dominio-nuevo.com
 	    InicioComponent,
 	    DominioComponent,
 	    DominioNuevoComponent,
+     ReparacionComponent,
+     ReparacionNuevaComponent,
   ],
   imports: [
 	  BrowserModule,

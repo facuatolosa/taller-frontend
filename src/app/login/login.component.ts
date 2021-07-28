@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ReparacionService } from '../services/reparacion.service';
 import { AutenticacionService } from '../services/autenticacion.service';
 import { DominioService } from '../services/dominio.service';
 
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private servicioAutenticacion: AutenticacionService,
 		private servicioDominio: DominioService,
+		private servicioReparacion: ReparacionService,
 		private router: Router
 	) { }
 
@@ -38,7 +40,7 @@ export class LoginComponent implements OnInit {
 		this.servicioAutenticacion.login(this.f.usuario.value, this.f.password.value).subscribe((rta) => {
 			console.log('login');
 			//Navegar al inicio
-			this.router.navigate(['inicio']);
+			this.router.navigate(['reparaciones']);
 		}, (error) => {
 			console.log(error);
 			if (error.status === 401) {
@@ -55,7 +57,7 @@ export class LoginComponent implements OnInit {
 	}
 
 
-	pedirDominios() {
-		this.servicioDominio.pedirDominios();
+	pedirReparaciones() {
+		this.servicioReparacion.pedirReparaciones();
 	}
 }
