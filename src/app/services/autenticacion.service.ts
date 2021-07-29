@@ -20,7 +20,7 @@ export class AutenticacionService {
 		return this.http.get(environment.url + 'login', opciones).pipe(
 			map((rta) => {
 				//Se logueo con exito
-				console.log('pipe -> map');
+				// console.log('pipe -> map');
 				// this.token = tokenUsuario;
 				localStorage.setItem('token', tokenUsuario);
 				localStorage.setItem('usuario', JSON.stringify(rta));

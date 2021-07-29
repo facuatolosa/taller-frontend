@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 	onSubmit() {
 		this.enviado = true;
 		this.servicioAutenticacion.login(this.f.usuario.value, this.f.password.value).subscribe((rta) => {
-			console.log('login');
+			// console.log('login');
 			//Navegar al inicio
 			this.router.navigate(['reparaciones']);
 		}, (error) => {

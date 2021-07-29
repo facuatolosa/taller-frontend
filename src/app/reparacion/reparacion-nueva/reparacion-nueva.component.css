@@ -1,0 +1,9 @@
+textarea{ 
+    height:100px; 
+    min-height:100px;  
+    max-height:100px;
+ }
+
+ label {
+     font-weight: bold;
+ }

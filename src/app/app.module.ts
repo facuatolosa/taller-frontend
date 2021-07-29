@@ -10,33 +10,33 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InterceptorHttpService } from './services/interceptor-http.service';
 import { appRoutingModule } from './rutas/rutas-routing.module';
 import { InicioComponent } from './inicio/inicio.component';
-import { DominioComponent } from './dominio/dominio.component';
-import { DominioNuevoComponent } from './dominio/dominio-nuevo/dominio-nuevo.component';
 import { ReparacionComponent } from './reparacion/reparacion.component';
 import { ReparacionNuevaComponent } from './reparacion/reparacion-nueva/reparacion-nueva.component';
+import { ReparacionDetalleComponent } from './reparacion/reparacion-detalle/reparacion-detalle.component';
+import { ClienteNuevoComponent } from './clientes/cliente-nuevo/cliente-nuevo.component';
 
 
 @NgModule({
-  declarations: [
+	declarations: [
 		AppComponent,
-	    HeaderComponent,
-	    FooterComponent,
-	    LoginComponent,
-	    InicioComponent,
-	    DominioComponent,
-	    DominioNuevoComponent,
-     ReparacionComponent,
-     ReparacionNuevaComponent,
-  ],
-  imports: [
-	  BrowserModule,
-	  ReactiveFormsModule,
-	  HttpClientModule,
-	  appRoutingModule
-  ],
+		HeaderComponent,
+		FooterComponent,
+		LoginComponent,
+		InicioComponent,
+		ReparacionComponent,
+		ReparacionNuevaComponent,
+		ReparacionDetalleComponent,
+		ClienteNuevoComponent,
+	],
+	imports: [
+		BrowserModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+		appRoutingModule
+	],
 	providers: [
-	  { provide: HTTP_INTERCEPTORS, useClass : InterceptorHttpService, multi : true}
-  ],
-  bootstrap: [AppComponent]
+		{ provide: HTTP_INTERCEPTORS, useClass: InterceptorHttpService, multi: true }
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

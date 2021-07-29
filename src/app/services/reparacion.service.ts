@@ -16,13 +16,13 @@ export class ReparacionService {
 
 	pedirReparacionesFiltradasPorNombre(filtro: string, orden?: string) {
 		if (orden) {
-			return this.http.get(environment.url + 'reparaciones?nombre=' + 'reparaciones?apellido=' + filtro +'&page=0' + '&sort=' + orden);
+			return this.http.get(environment.url + 'reparaciones/filtrar?nombre=' + filtro + '&apellido=' + '&sort=cliente.' + orden);
 		}
-		return this.http.get(environment.url + 'reparaciones?nombre='+ 'reparaciones?apellido=' + filtro);
+		return this.http.get(environment.url + 'reparaciones/filtrar?nombre=' + filtro + '&apellido=');
 	}
 
 	guardar(nuevaReparacion: any) {
-		return this.http.post(environment.url + 'reparaciones', nuevaReparacion);
+		return this.http.post(environment.url + 'reparaciones/', nuevaReparacion);
 	}
 
 	actualizar(reparacion: any) {

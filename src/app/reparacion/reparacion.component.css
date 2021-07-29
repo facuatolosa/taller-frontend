@@ -1,0 +1,9 @@
+table {
+    border-radius: 6px;
+}
+
+thead {
+    color: white; 
+    font-style: oblique; 
+    background-color: #0D6EFD;
+}

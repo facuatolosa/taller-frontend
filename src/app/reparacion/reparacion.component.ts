@@ -10,7 +10,9 @@ import { ReparacionService } from '../services/reparacion.service';
 export class ReparacionComponent implements OnInit {
   filtrarReparacionesForm: FormGroup;
   reparaciones: any;
-  orderNombreDesc: boolean;
+  orderIDDesc: boolean = undefined;
+  orderNombreDesc: boolean = undefined;
+
   constructor(private servicioReparaciones: ReparacionService,
     private formBuilder: FormBuilder,
     private router: Router) { }
@@ -31,14 +33,13 @@ export class ReparacionComponent implements OnInit {
       console.log(error);
     });
   }
-  nuevaReparacion() {
-    this.router.navigate(["reparacionnueva"]);
-  }
 
+  nuevaReparacion() {
+    this.router.navigate(["reparaciones/nueva"]);
+  }
 
   ver(id: number) {
     this.router.navigate(["reparaciones", id]);
-    //Router ir a /dominios/:id
   }
 
   get f() {
@@ -49,11 +50,12 @@ export class ReparacionComponent implements OnInit {
     this.filtrarImpl(this.f.filtro.value);
   }
 
-  filtrarImpl(valor: string, orden?: string) {
-    this.servicioReparaciones.pedirReparacionesFiltradasPorNombre(valor, orden).subscribe((rta: any) => {
-      console.log(rta);
+  filtrarImpl(value: string, estrategia?: string, orden?: string) {
+    this.servicioReparaciones.pedirReparacionesFiltradasPorNombre(value, orden).subscribe((rta: any) => {
+      // console.log(rta);
       if (rta && rta.content) {
         this.reparaciones = rta.content;
+        console.log(rta.content);
       } else {
         this.reparaciones = rta;
       }
@@ -71,17 +73,19 @@ export class ReparacionComponent implements OnInit {
     if (evento.keyCode === 13) {
       this.filtrarImpl(this.f.filtro.value);
     }
-    
   }
+ 
   ordenar(estrategia: string) {
     if (estrategia === 'nombre') {
       this.orderNombreDesc = !this.orderNombreDesc;
-      //llamar al metodo de filtrar 
-      // this.filtrarImpl(this.f.filtro.value, this.orderNombreDesc ? 'nombreDominio,desc' : 'nombreDominio,asc');
-
+      console.log("Nombre Order Value: " + this.orderNombreDesc);
+      this.filtrarImpl(this.f.filtro.value, estrategia, this.orderNombreDesc ? 'nombre,desc' : 'nombre,asc');
+    } else if (estrategia === 'id'){
+      this.orderIDDesc = !this.orderIDDesc;
+      console.log("ID Order Value: " + this.orderIDDesc);
+      this.filtrarImpl(this.f.filtro.value, estrategia, this.orderIDDesc ? 'id,desc' : 'id,asc');
     }
   }
 
-
-
+  
 }
