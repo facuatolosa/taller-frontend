@@ -1,11 +1,12 @@
 <app-header></app-header>
 <div class="container">
-	<h1>Reparaciones</h1>
+	<p></p>
+	<h2>Reparaciones</h2>
 	<form [formGroup]="filtrarReparacionesForm">
 		<div class="input-group mb-3">
 			<input type="text" class="form-control" placeholder="Ingrese su búsqueda..." formControlName="filtro" (keyup)="keyPress($event)">
-			<button class="btn btn-outline-secondary" type="button" (click)="filtrar()" id="btn-buscar">Buscar</button>
-			<button class="btn btn-outline-danger" type="button" (click)="limpiar()" id="btn-limpiar">Limpiar</button>
+			<button class="btn btn-secondary" type="button" (click)="filtrar()" id="btn-buscar">Buscar</button>
+			<button class="btn btn-danger" type="button" (click)="limpiar()" id="btn-limpiar">Limpiar</button>
 			<button class="btn btn-success" type="button" (click)="nuevaReparacion()" id="btn-nuevo">Nuevo</button>
 		</div>
 	</form>
@@ -28,7 +29,6 @@
 				<td>{{d.cliente.nombre}} {{d.cliente.apellido}}</td>
 				<td>{{d.descripcionVehiculo}}</td>
 				<td>{{d.estado.nombre}}</td>
-				<!-- <td [ngClass]="{'table-primary' : d.id % 2 === 0}">{{d.fechaSalida | date : 'dd/MM/yyyy HH:mm'}}</td> -->
 				<td>{{d.fechaEntrada | date : 'dd/MM/yyyy'}}</td>
 				<td>{{d.fechaSalida | date : 'dd/MM/yyyy'}}</td>
 

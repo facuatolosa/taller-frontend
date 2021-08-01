@@ -14,7 +14,7 @@ const routes: Routes = [
 	{ path: 'reparaciones/nueva', component: ReparacionNuevaComponent, canActivate: [Authguard] },
 	{ path: 'reparaciones/:id', component: ReparacionDetalleComponent, canActivate: [Authguard] },
 	{ path: 'clientes/nuevo', component: ClienteNuevoComponent, canActivate: [Authguard] },
-	{ path: '**', redirectTo: 'inicio' },
+	{ path: '**', redirectTo: 'reparaciones' },
 ];
 
 export const appRoutingModule = RouterModule.forRoot(routes);

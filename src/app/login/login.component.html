@@ -26,15 +26,13 @@
 							</div>
 							<div class="form-group" id="password-group">
 								<label for="password"><i class="fas fa-key"></i> Contraseña</label>
-								<input type="password" placeholder="Ingrese su contraseña" formControlName="password"
-									class="form-control"
+								<input type="password" placeholder="Ingrese su contraseña" formControlName="password" class="form-control"
 									[ngClass]="{ 'is-invalid' : enviado && loginForm.controls.password.errors }">
 								<div *ngIf="enviado && loginForm.controls.password.errors" class="invalid-feedback">
-									<div *ngIf="loginForm.controls.password.errors.required">Debe ingresar una contraseña
+									<div *ngIf="loginForm.controls.password.errors.required">Debe ingresar una contraseña.
 									</div>
-									<div *ngIf="loginForm.controls.password.errors.minlength">La contraseña debe contener al
-										menos
-										{{loginForm.controls.password.errors.minlength.requiredLength}}</div>
+									<div *ngIf="loginForm.controls.password.errors.minlength">La contraseña debe contener al menos
+										{{loginForm.controls.password.errors.minlength.requiredLength}} caracteres.</div>
 								</div>
 							</div>
 							<p></p>

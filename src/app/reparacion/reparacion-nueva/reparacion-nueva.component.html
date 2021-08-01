@@ -2,74 +2,128 @@
 <div class="container">
 	<div style="text-align: center;">
 		<p></p>
-        <h2>Alta de Reparaciones</h2>
-    </div>
+		<h2>Alta de Reparaciones</h2>
+	</div>
 	<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
 
-		<div class="row">
-			<div class="col">
-				<label class="control-label">Fecha de Entrada </label>
+		<div class="form-group" id="dates-group">
+			<div class="row">
+				<div class="col">
+					<label class="control-label">Fecha de Entrada </label>
+				</div>
+				<div class="col col-lg-2" style="width: 100px;">
+	
+				</div>
+				<div class="col">
+					<label class="control-label">Fecha de Salida </label>
+				</div>
 			</div>
-			<div class="col col-lg-2" style="width: 100px;">
-
-			</div>
-			<div class="col">
-				<label class="control-label">Fecha de Salida </label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<input class="form-control" type="date">
-			</div>
-			<div class="col col-lg-2" style="width: 100px;">
-
-			</div>
-			<div class="col">
-				<input class="form-control" type="date">
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="control-label">Cliente</label>
-			<select class="form-control" id="clientes">
-				<!-- Traer listado de clientes cargados o dar la opcion de buscarlos -->
-				<option value="">Argüello Tolosa, Facundo</option>
-				<option value="">Bonoris, Luca</option>
-				<option value="">Bortolin, Francisco</option>
-				<option value="">Garino, CHELO XD</option>
-				<option value="">Quinteros, José</option>
-			</select>
-		</div>
-
-		<div>
-			<label for="adress" class="control-label">Datos del Vehículo</label>
-		</div>
-		<div class="input-group mb-3">
-			<span class="input-group-text">Marca</span>
-			<input type="text" class="form-control" placeholder="Ej. Renault">
-			<span class="input-group-text">Modelo</span>
-			<input type="text" class="form-control" placeholder="Ej. Clio Mio 1.6">
-			<span class="input-group-text">Patente</span>
-			<input type="text" class="form-control" placeholder="Ej. NPQ957">
-		</div>	
-		<div class="form-group">
-			<label class="control-label" >Estado</label>
-			<select class="form-control" id="estado_id">
-				<option value="{{estado.id}}" *ngFor="let estado of estados">{{estado.nombre}}</option>
-			</select>
-		</div>
-
-		<div>
-			<label class="control-label">Descripción</label>
-			<div>
-				<div class="input-group">
-					<textarea class="form-control" aria-label="With textarea" placeholder="Ingrese la descripción de la reparación aquí."></textarea>
+			<div class="row">
+				<div class="col">
+					<div class="input-group mb-3">
+						<span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
+						<input class="form-control" type="date" min="{{fechaActualFormateada}}" id="fechaEntrada" formControlName="fechaEntrada">
+					</div>
+					<div *ngIf="enviado && formulario.controls.fechaEntrada.errors" class="invalid-feedback">
+						<div *ngIf="formulario.controls.fechaEntrada.errors.required">Debe seleccionar una fecha de entrada</div>
+					</div>
+				</div>
+				<div class="col col-lg-2" style="width: 100px;">
+	
+				</div>
+				<div class="col">
+					<div class="input-group mb-3">
+						<span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
+						<input class="form-control" type="date" min="{{fechaActualFormateada}}" id="fechaSalida">
+					</div>
 				</div>
 			</div>
 		</div>
+
+		<div class="form-group" id="user-group">
+			<label class="control-label">Cliente</label>
+
+			<div class="input-group mb-3">
+				<span class="input-group-text"><i class="fas fa-user"></i></span>
+				<input type="text" class="form-control" placeholder="Ingrese el nombre del cliente a buscar"
+					aria-label="Recipient's username" aria-describedby="basic-addon2" id="nombreCliente" formControlName="nombreCliente">
+				<button class="btn btn-secondary" id="btn-buscar" (click)="buscar()"> <i class="fas fa-search"></i> Buscar </button>
+			</div>
+			<div *ngIf="enviado && formulario.controls.fechaEntrada.errors" class="invalid-feedback">
+				<div *ngIf="formulario.controls.nombreCliente.errors.required">Debe ingresar un nombre a buscar</div>
+				<div *ngIf="formulario.controls.nombreCliente.errors.minlength">El nombre ingresado debe contener al menos
+					{{formulario.controls.nombreCliente.errors.minlength.requiredLength}} caracteres.</div>
+			</div>
+	
+			<div>
+				<select class="form-control form-select" id="clientes">
+					<option value="{{cliente.id}}" *ngFor="let cliente of clientes">{{cliente.apellido}}, {{cliente.nombre}}</option>
+				</select>
+			</div>			
+		</div>
+
+		<div class="form-group" id="vehiculo-group">
+			<label class="control-label">Datos del Vehículo</label>
+			<div class="input-group mb-3">
+				<span class="input-group-text"><i class="fas fa-car"></i></span>
+				<span class="input-group-text" id="subspan">Marca</span>
+				<input type="text" class="form-control" placeholder="Ej. Renault"  formControlName="marca">
+				<span class="input-group-text" id="subspan">Modelo</span>
+				<input type="text" class="form-control" placeholder="Ej. Clio Mio 1.6" formControlName="modelo">
+				<span class="input-group-text" id="subspan">Patente</span>
+				<input type="text" class="form-control" placeholder="Ej. NPQ957" formControlName="dominio">
+			</div>
+			<div *ngIf="enviado && formulario.controls.marca.errors" class="invalid-feedback">
+				<div *ngIf="formulario.controls.marca.errors.required">Debe ingresar la marca del vehículo.</div>
+				<div *ngIf="formulario.controls.marca.errors.minlength">La marca ingresada debe contener al menos
+					{{formulario.controls.marca.errors.minlength.requiredLength}} caracteres.</div>
+			</div>
+		</div>
+
+		<div class="form-group" id="estado-group">
+			<label class="control-label">Estado</label>
+			<div class="input-group mb-3">
+				<span class="input-group-text"><i class="fas fa-cogs"></i></span>
+				<select class="form-control form-select" id="estados">
+					<option value="{{estado.id}}" *ngFor="let estado of estados">{{estado.nombre}}</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group" id="description-group">
+			<label class="control-label">Descripción</label>
+			<div>
+				<div class="input-group">
+					<textarea class="form-control" aria-label="With textarea"
+						placeholder="Ingrese la descripción de la reparación aquí." formControlName="descripcion"></textarea>
+				</div>
+			</div>
+			<div *ngIf="enviado && formulario.controls.descripcion.errors" class="invalid-feedback">
+				<div *ngIf="formulario.controls.descripcion.errors.required">Debe ingresar descripcion sobre el estado y la reparación del vehículo.</div>
+				<div *ngIf="formulario.controls.descripcion.errors.minlength">La descripcion ingresada debe contener al menos
+					{{formulario.controls.descripcion.errors.minlength.requiredLength}} caracteres.</div>
+				<div *ngIf="formulario.controls.descripcion.errors.maxlength">La descripcion ingresada debe contener como máximo
+					{{formulario.controls.descripcion.errors.maxlength.requiredLength}} caracteres.</div>
+			</div>
+		</div>
+
+		<div class="form-group" id="cost-group">
+			<label class="control-label">Costo de la reparación</label>
+			<div class="input-group mb-3">
+				<span class="input-group-text"><b>$</b></span>
+				<input type="number" class="form-control" placeholder="Ingrese el valor del servicio" id="costo"  formControlName="costo">
+				<span class="input-group-text">.00</span>
+			</div>
+			<div *ngIf="enviado && formulario.controls.costo.errors" class="invalid-feedback">
+				<div *ngIf="formulario.controls.costo.errors.required">Debe ingresar el costo del servicio de reparación/mantenimiento del vehículo.</div>
+				<div *ngIf="formulario.controls.costo.errors.minlength">El costo ingresada debe contener al menos
+					{{formulario.controls.costo.errors.minlength.requiredLength}} dígitos.</div>
+			</div>
+		</div>
+
 		<p></p>
 		<div class="form-group">
-			<button class="btn btn-success" type="submit" class="btn btn-primary">Guardar</button>
+			<button class="btn btn-success" type="submit" class="btn btn-primary" id="btn-guardar" (click)="onSubmit()">Guardar</button>
 		</div>
 
 	</form>
