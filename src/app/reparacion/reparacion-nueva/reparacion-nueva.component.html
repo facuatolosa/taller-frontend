@@ -22,7 +22,8 @@
 				<div class="col">
 					<div class="input-group mb-3">
 						<span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
-						<input class="form-control" type="date" min="{{fechaActualFormateada}}" id="fechaEntrada" formControlName="fechaEntrada">
+						<input class="form-control" type="date" min="{{fechaActualFormateada}}" id="fechaEntrada" 
+						formControlName="fechaEntrada" [ngClass]="{ 'is-invalid' : enviado && formulario.controls.fechaEntrada.errors }">
 					</div>
 					<div *ngIf="enviado && formulario.controls.fechaEntrada.errors" class="invalid-feedback">
 						<div *ngIf="formulario.controls.fechaEntrada.errors.required">Debe seleccionar una fecha de entrada</div>
@@ -34,30 +35,31 @@
 				<div class="col">
 					<div class="input-group mb-3">
 						<span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
-						<input class="form-control" type="date" min="{{fechaActualFormateada}}" id="fechaSalida">
+						<input class="form-control" type="date" min="{{fechaActualFormateada}}" id="fechaSalida" formControlName="fechaSalida">
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="form-group" id="user-group">
+		<div class="form-group" id="clientgroup">
 			<label class="control-label">Cliente</label>
 
 			<div class="input-group mb-3">
 				<span class="input-group-text"><i class="fas fa-user"></i></span>
 				<input type="text" class="form-control" placeholder="Ingrese el nombre del cliente a buscar"
-					aria-label="Recipient's username" aria-describedby="basic-addon2" id="nombreCliente" formControlName="nombreCliente">
-				<button class="btn btn-secondary" id="btn-buscar" (click)="buscar()"> <i class="fas fa-search"></i> Buscar </button>
+					aria-label="Recipient's username" aria-describedby="basic-addon2" id="nombreCliente" formControlName="nombreCliente"
+					[ngClass]="{ 'is-invalid' : enviado && formulario.controls.nombreCliente.errors }">
+				<span class="btn btn-secondary" id="btn-buscar" (click)="buscar()"> <i class="fas fa-search"></i> Buscar </span>
 			</div>
-			<div *ngIf="enviado && formulario.controls.fechaEntrada.errors" class="invalid-feedback">
+			<div *ngIf="enviado && formulario.controls.nombreCliente.errors" class="invalid-feedback">
 				<div *ngIf="formulario.controls.nombreCliente.errors.required">Debe ingresar un nombre a buscar</div>
 				<div *ngIf="formulario.controls.nombreCliente.errors.minlength">El nombre ingresado debe contener al menos
 					{{formulario.controls.nombreCliente.errors.minlength.requiredLength}} caracteres.</div>
 			</div>
 	
 			<div>
-				<select class="form-control form-select" id="clientes">
-					<option value="{{cliente.id}}" *ngFor="let cliente of clientes">{{cliente.apellido}}, {{cliente.nombre}}</option>
+				<select class="form-control form-select" id="clientes" formControlName="selectCliente">
+					<option [ngValue]="cliente" *ngFor="let cliente of clientesFiltrados">{{cliente.apellido}}, {{cliente.nombre}}</option>
 				</select>
 			</div>			
 		</div>
@@ -67,16 +69,26 @@
 			<div class="input-group mb-3">
 				<span class="input-group-text"><i class="fas fa-car"></i></span>
 				<span class="input-group-text" id="subspan">Marca</span>
-				<input type="text" class="form-control" placeholder="Ej. Renault"  formControlName="marca">
+				<input type="text" class="form-control" placeholder="Ej. Renault"  formControlName="marca" [ngClass]="{ 'is-invalid' : enviado && formulario.controls.marca.errors }">
 				<span class="input-group-text" id="subspan">Modelo</span>
-				<input type="text" class="form-control" placeholder="Ej. Clio Mio 1.6" formControlName="modelo">
+				<input type="text" class="form-control" placeholder="Ej. Clio Mio 1.6" formControlName="modelo" [ngClass]="{ 'is-invalid' : enviado && formulario.controls.marca.errors }">
 				<span class="input-group-text" id="subspan">Patente</span>
-				<input type="text" class="form-control" placeholder="Ej. NPQ957" formControlName="dominio">
+				<input type="text" class="form-control" placeholder="Ej. NPQ957" formControlName="dominio" [ngClass]="{ 'is-invalid' : enviado && formulario.controls.marca.errors }">
 			</div>
 			<div *ngIf="enviado && formulario.controls.marca.errors" class="invalid-feedback">
 				<div *ngIf="formulario.controls.marca.errors.required">Debe ingresar la marca del vehículo.</div>
 				<div *ngIf="formulario.controls.marca.errors.minlength">La marca ingresada debe contener al menos
 					{{formulario.controls.marca.errors.minlength.requiredLength}} caracteres.</div>
+			</div>
+			<div *ngIf="enviado && formulario.controls.modelo.errors" class="invalid-feedback">
+				<div *ngIf="formulario.controls.modelo.errors.required">Debe ingresar el modelo del vehículo.</div>
+				<div *ngIf="formulario.controls.modelo.errors.minlength">El modelo ingresado debe contener al menos
+					{{formulario.controls.modelo.errors.minlength.requiredLength}} caracteres.</div>
+			</div>
+			<div *ngIf="enviado && formulario.controls.dominio.errors" class="invalid-feedback">
+				<div *ngIf="formulario.controls.dominio.errors.required">Debe ingresar el dominio del vehículo.</div>
+				<div *ngIf="formulario.controls.dominio.errors.minlength">El dominio ingresado debe contener al menos
+					{{formulario.controls.dominio.errors.minlength.requiredLength}} caracteres.</div>
 			</div>
 		</div>
 
@@ -84,8 +96,8 @@
 			<label class="control-label">Estado</label>
 			<div class="input-group mb-3">
 				<span class="input-group-text"><i class="fas fa-cogs"></i></span>
-				<select class="form-control form-select" id="estados">
-					<option value="{{estado.id}}" *ngFor="let estado of estados">{{estado.nombre}}</option>
+				<select class="form-control form-select" id="estados" formControlName="selectEstado" >
+					<option [ngValue]="estado" *ngFor="let estado of estados">{{estado.nombre}}</option>
 				</select>
 			</div>
 		</div>
@@ -94,8 +106,9 @@
 			<label class="control-label">Descripción</label>
 			<div>
 				<div class="input-group">
-					<textarea class="form-control" aria-label="With textarea"
-						placeholder="Ingrese la descripción de la reparación aquí." formControlName="descripcion"></textarea>
+					<textarea class="form-control" aria-label="With textarea" placeholder="Ingrese la descripción de la reparación aquí." formControlName="descripcion" 
+						[ngClass]="{ 'is-invalid' : enviado && formulario.controls.descripcion.errors }">
+					</textarea>
 				</div>
 			</div>
 			<div *ngIf="enviado && formulario.controls.descripcion.errors" class="invalid-feedback">
@@ -111,7 +124,8 @@
 			<label class="control-label">Costo de la reparación</label>
 			<div class="input-group mb-3">
 				<span class="input-group-text"><b>$</b></span>
-				<input type="number" class="form-control" placeholder="Ingrese el valor del servicio" id="costo"  formControlName="costo">
+				<input type="number" class="form-control" placeholder="Ingrese el valor del servicio" id="costo"  formControlName="costo"
+				[ngClass]="{ 'is-invalid' : enviado && formulario.controls.costo.errors }" min="0">
 				<span class="input-group-text">.00</span>
 			</div>
 			<div *ngIf="enviado && formulario.controls.costo.errors" class="invalid-feedback">
@@ -123,7 +137,7 @@
 
 		<p></p>
 		<div class="form-group">
-			<button class="btn btn-success" type="submit" class="btn btn-primary" id="btn-guardar" (click)="onSubmit()">Guardar</button>
+			<button class="btn btn-success" class="btn btn-primary" id="btn-guardar">Guardar</button>
 		</div>
 
 	</form>

@@ -10,8 +10,8 @@ import { ReparacionService } from '../services/reparacion.service';
 export class ReparacionComponent implements OnInit {
   filtrarReparacionesForm: FormGroup;
   reparaciones: any;
-  orderIDDesc: boolean = undefined;
-  orderNombreDesc: boolean = undefined;
+  orderIDDesc: boolean;
+  orderNombreDesc: boolean;
 
   constructor(private servicioReparaciones: ReparacionService,
     private formBuilder: FormBuilder,
@@ -25,10 +25,15 @@ export class ReparacionComponent implements OnInit {
     // Debo pedir los dominios al backend
     this.cargarDatos();
   }
+
   cargarDatos() {
     this.servicioReparaciones.pedirReparaciones().subscribe((rta) => {
       console.log(rta);
       this.reparaciones = rta;
+      for (let i = 0; i < this.reparaciones.length; i++) {
+        this.reparaciones[i].descripcionVehiculo = this.reparaciones[i].descripcionVehiculo.split('|').join('');
+        // console.log(this.reparaciones[i]);
+      }
     }, (error) => {
       console.log(error);
     });
@@ -40,6 +45,17 @@ export class ReparacionComponent implements OnInit {
 
   ver(id: number) {
     this.router.navigate(["reparaciones", id]);
+    this.servicioReparaciones.pedirReparacion(id).subscribe((rta: any) => {
+      console.log(rta);
+      if (rta && rta.content) {
+        this.reparaciones = rta.content;
+        console.log(rta.content);
+      } else {
+        this.reparaciones = rta;
+      }
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   get f() {

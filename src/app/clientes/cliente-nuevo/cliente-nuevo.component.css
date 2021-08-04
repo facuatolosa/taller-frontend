@@ -1,3 +1,7 @@
 label {
     font-weight: bold;
 }
+
+span {
+    width: 120px;
+}

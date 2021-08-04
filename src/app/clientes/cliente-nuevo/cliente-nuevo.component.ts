@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EstadosService } from 'src/app/services/estados.service';
 
@@ -9,7 +9,7 @@ import { EstadosService } from 'src/app/services/estados.service';
   styleUrls: ['./cliente-nuevo.component.css']
 })
 export class ClienteNuevoComponent implements OnInit {
-  formulario: FormGroup;
+  nuevoClienteForm: FormGroup;
   titulo: string;
   modoNuevo: boolean;
   estados: any;
@@ -22,7 +22,22 @@ export class ClienteNuevoComponent implements OnInit {
     public router: Router
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+		this.nuevoClienteForm = this.formBuilder.group({
+			nombre: ['', [Validators.required, Validators.minLength(3)]],
+			apellido: ['', [Validators.required, Validators.minLength(3)]],
+			documento: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(8)]],
+			direccion: ['', [Validators.required, Validators.maxLength(20)]],
+			codPostal: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
+		});
+	}
+
+	get f() {
+		return this.nuevoClienteForm.controls;
+	}
+
+	onSubmit() {
+		this.enviado = true;
   }
 
 }

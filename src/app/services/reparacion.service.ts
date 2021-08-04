@@ -9,6 +9,10 @@ export class ReparacionService {
 
 	
 	constructor(private http: HttpClient) { }
+
+	pedirReparacion(id:number) {
+		return this.http.get(environment.url + 'reparaciones/' + id);
+	}
 	
 	pedirReparaciones() {
 		return this.http.get(environment.url + 'reparaciones');
