@@ -141,8 +141,11 @@
 		</div>
 
 		<p></p>
-		<div class="form-group">
-			<button class="btn btn-primary" id="btn-modo">{{btnModoText}}</button>
+		<div class="form-group" *ngIf="!modoEditar">
+			<button class="btn btn-primary" id="btnEditar">{{btnModoText}}</button>
+		</div>
+		<div class="form-group" *ngIf="modoEditar">
+			<button class="btn btn-success" id="btnGuardar">{{btnModoText}}</button>
 		</div>
 
 	</form>

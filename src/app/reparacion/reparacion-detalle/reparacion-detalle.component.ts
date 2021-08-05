@@ -46,6 +46,7 @@ export class ReparacionDetalleComponent implements OnInit {
 			this.titulo = "Detalle de Reparación";
 		}
 		this.formulario = this.formBuilder.group({
+			idReparacion: [''],
 			fechaEntrada: ['', [Validators.required]],
 			fechaSalida: ['', [Validators.required]],
 			nombreCliente: [''],
@@ -70,6 +71,7 @@ export class ReparacionDetalleComponent implements OnInit {
 			} else {
 			  this.reparacion = rta;
 			}
+			this.form.idReparacion.setValue(this.reparacion.id);
 			this.form.fechaEntrada.setValue(this.reparacion.fechaEntrada);
 			this.form.fechaSalida.setValue(this.reparacion.fechaSalida);
 			this.form.nombreCliente.setValue(this.reparacion.cliente.apellido+", "+this.reparacion.cliente.nombre);
@@ -83,7 +85,6 @@ export class ReparacionDetalleComponent implements OnInit {
 			this.servicioClientes.pedirClientes().subscribe((rta: any) => {
 				this.clientes = rta.content;
 				this.clientesFiltrados = rta.content;
-				console.log("Clientes:", rta.content);
 			}, (error) => {
 				console.log("Error clientes: ", error);
 			});
@@ -142,7 +143,6 @@ export class ReparacionDetalleComponent implements OnInit {
 
 	buscar() {
 		this.filtroClientes = String((document.getElementById('nombreCliente') as HTMLInputElement).value).toUpperCase();
-		// alert(this.filtroClientes);
 		this.clientesFiltrados = this.filtrarClientes();
 	  }
 	
@@ -162,5 +162,49 @@ export class ReparacionDetalleComponent implements OnInit {
 		if (evento.keyCode === 13) {
 		  this.buscar();
 		}
+	}
+
+	actualizar(){
+		Swal.fire({
+		title: '¿Seguro que desea continuar?',
+		text: "No podrá revertir los cambios!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Aceptar'
+		}).then((result) => {
+			if (result.value) {
+				var reparacionActulizada: any;
+				reparacionActulizada = {}; 
+				reparacionActulizada.id = this.form.idReparacion.value;
+				reparacionActulizada.fechaEntrada = this.form.fechaEntrada.value;
+				reparacionActulizada.fechaSalida = this.form.fechaSalida.value;
+				reparacionActulizada.cliente = this.form.selectCliente.value;
+				reparacionActulizada.descripcionVehiculo = this.form.marca.value+" |"+this.form.modelo.value+" |"+this.form.dominio.value.toUpperCase();
+				reparacionActulizada.estado = this.form.selectEstado.value;
+				reparacionActulizada.descripcion = this.form.descripcion.value;
+				reparacionActulizada.costoTotal = this.form.costo.value;
+				console.log(reparacionActulizada);
+				this.servicioReparacion.actualizar(reparacionActulizada).subscribe((rta) => {
+					Swal.fire({
+						icon: 'success',
+						title: 'Reparación guardada',
+						text: 'La reparación ha sido guardada en la BD exitosamente',
+						confirmButtonText: 'Aceptar',
+						confirmButtonColor: '#0D6EFD',
+					})
+					this.router.navigate(["reparaciones"]);
+				}, (error) => {
+					Swal.fire({
+						icon: 'error',
+						title: 'Error al guardar',
+						text: 'Se produjo un error al intentar guardar la reparación',
+						confirmButtonText: 'Aceptar',
+						confirmButtonColor: '#0D6EFD',
+					})
+				});
+			}
+		}) 
 	}
 }
