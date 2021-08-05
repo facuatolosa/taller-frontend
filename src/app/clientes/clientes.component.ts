@@ -51,7 +51,7 @@ export class ClientesComponent implements OnInit {
   }
 
   ver(id: number) {
-    // this.router.navigate(["clientes", id]);
+    this.router.navigate(["clientes", id]);
   }
 
   eliminar(id: number) {

@@ -45,6 +45,7 @@ export class ReparacionDetalleComponent implements OnInit {
 			this.btnModoText="Editar";
 			this.titulo = "Detalle de Reparación";
 		}
+
 		this.formulario = this.formBuilder.group({
 			idReparacion: [''],
 			fechaEntrada: ['', [Validators.required]],
@@ -89,8 +90,8 @@ export class ReparacionDetalleComponent implements OnInit {
 				console.log("Error clientes: ", error);
 			});
 			this.form.selectCliente.setValue(this.clientes);
-			this.servicioEstados.pedirEstados().subscribe((rta) => {
-				this.estados = rta;
+			this.servicioEstados.pedirEstados().subscribe((rta:any) => {
+				this.estados = rta.slice(4);
 			}, (error) => {
 				console.log("Error estados: ", error);
 			});
@@ -174,18 +175,18 @@ export class ReparacionDetalleComponent implements OnInit {
 	}
 
 	actualizar() {
-		var reparacionActulizada: any;
-		reparacionActulizada = {};
-		reparacionActulizada.id = this.form.idReparacion.value;
-		reparacionActulizada.fechaEntrada = this.form.fechaEntrada.value;
-		reparacionActulizada.fechaSalida = this.form.fechaSalida.value;
-		reparacionActulizada.cliente = this.form.selectCliente.value;
-		reparacionActulizada.descripcionVehiculo = this.form.marca.value + " |" + this.form.modelo.value + " |" + this.form.dominio.value.toUpperCase();
-		reparacionActulizada.estado = this.form.selectEstado.value;
-		reparacionActulizada.descripcion = this.form.descripcion.value;
-		reparacionActulizada.costoTotal = this.form.costo.value;
-		console.log(reparacionActulizada);
-		this.servicioReparacion.actualizar(reparacionActulizada).subscribe((rta) => {
+		var reparacionActualizada: any;
+		reparacionActualizada = {};
+		reparacionActualizada.id = this.form.idReparacion.value;
+		reparacionActualizada.fechaEntrada = this.form.fechaEntrada.value;
+		reparacionActualizada.fechaSalida = this.form.fechaSalida.value;
+		reparacionActualizada.cliente = this.form.selectCliente.value;
+		reparacionActualizada.descripcionVehiculo = this.form.marca.value + " |" + this.form.modelo.value + " |" + this.form.dominio.value.toUpperCase();
+		reparacionActualizada.estado = this.form.selectEstado.value;
+		reparacionActualizada.descripcion = this.form.descripcion.value;
+		reparacionActualizada.costoTotal = this.form.costo.value;
+		console.log(reparacionActualizada);
+		this.servicioReparacion.actualizar(reparacionActualizada).subscribe((rta) => {
 			Swal.fire({
 				icon: 'success',
 				title: 'Reparación guardada',

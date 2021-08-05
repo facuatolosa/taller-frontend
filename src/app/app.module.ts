@@ -15,6 +15,7 @@ import { ReparacionNuevaComponent } from './reparacion/reparacion-nueva/reparaci
 import { ReparacionDetalleComponent } from './reparacion/reparacion-detalle/reparacion-detalle.component';
 import { ClienteNuevoComponent } from './clientes/cliente-nuevo/cliente-nuevo.component';
 import { ClientesComponent } from './clientes/clientes.component';
+import { ClienteDetalleComponent } from './clientes/cliente-detalle/cliente-detalle.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ClientesComponent } from './clientes/clientes.component';
 		ReparacionDetalleComponent,
 		ClienteNuevoComponent,
 		ClientesComponent,
+  ClienteDetalleComponent,
 	],
 	imports: [
 		BrowserModule,

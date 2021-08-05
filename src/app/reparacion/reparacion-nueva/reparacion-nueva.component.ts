@@ -54,9 +54,9 @@ export class ReparacionNuevaComponent implements OnInit {
   }
 
   cargarDatos() {
-    this.servicioEstados.pedirEstados().subscribe((rta) => {
+    this.servicioEstados.pedirEstados().subscribe((rta:any) => {
       // console.log("Estados:", rta);
-      this.estados = rta;
+      this.estados = rta.slice(4);
     }, (error) => {
       console.log("Error estados: ", error);
     });

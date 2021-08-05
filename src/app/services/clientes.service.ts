@@ -24,6 +24,10 @@ export class ClientesService {
 		return this.http.get(environment.url + 'clientes/filtrar?nombre=' + filtro + '&apellido=');
 	}
 
+	actualizar(cliente: any) {
+		return this.http.put(environment.url + 'clientes/' + cliente.id, cliente);
+	}
+
   	guardar(nuevoCliente: any) {
 		return this.http.post(environment.url + 'clientes/', nuevoCliente);
 	}

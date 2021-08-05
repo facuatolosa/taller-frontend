@@ -12,4 +12,8 @@ export class EstadosService {
 	pedirEstados() {
 		return this.http.get(environment.url + 'estados');
 	}
+
+	pedirEstado(id: number) {
+		return this.http.get(environment.url + 'estados/' + id);
+	}
 }

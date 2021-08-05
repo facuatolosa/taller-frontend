@@ -62,9 +62,9 @@ export class ClienteNuevoComponent implements OnInit {
         var nuevaDireccion: any = {};
         nuevaDireccion.calle = this.form.calle.value;
         nuevaDireccion.altura = this.form.alturaCalle.value;
-        nuevaDireccion.localidad = this.form.selectCiudades.value + "|, " + this.form.selectProvincias.value;
+        nuevaDireccion.localidad = this.form.selectCiudades.value + ", " + this.form.selectProvincias.value;
         this.servicioDireccion.guardar(nuevaDireccion).subscribe((rta) => {
-           this.servicioDireccion.traerUltima().subscribe((rta: any) => {
+          this.servicioDireccion.traerUltima().subscribe((rta: any) => {
             if (rta && rta.content) {
               nuevoCliente.direccion = rta.content[0];
               console.log(rta.content[0]);
