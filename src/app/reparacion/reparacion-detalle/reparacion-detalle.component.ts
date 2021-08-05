@@ -122,23 +122,34 @@ export class ReparacionDetalleComponent implements OnInit {
 	}
 
 	onSubmit() {
+		if (this.modoEditar){
+			Swal.fire({
+				title: '¿Seguro que desea continuar?',
+				text: "No podrá revertir los cambios!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Aceptar'
+			}).then((result) => {
+				if (result.value) {
+					this.cambiarModo(this.modoEditar);
+					this.actualizar();
+				}
+			})
+		}
 		this.cambiarModo(this.modoEditar);
-		
 	}
 
 	cambiarModo(modo:boolean) {
-		// console.log("Modo antes de ejecutar:",this.modoEditar);
 		this.modoEditar=!this.modoEditar;
 		if (this.modoEditar){
 			this.btnModoText="Guardar";
 			this.titulo = "Editar Reparación";
-			// A continuación se procede a habilitar los campos deshabilitados (puestos como read only)
-			// this.habilitarCampos();
 		} else {
 			this.btnModoText="Editar",
 			this.titulo = "Detalle de Reparación";
 		}
-		// console.log("Modo despues de ejecutar:",this.modoEditar);
 	}
 
 	buscar() {
@@ -149,8 +160,6 @@ export class ReparacionDetalleComponent implements OnInit {
 	filtrarClientes(){
 		let filtrados: object[] = [];
 		for (let i = 0; i < this.clientes.length; i++) {
-		  // console.log(this.clientes[i]);
-		  // console.log("Método buscar() incluye filtro '" + this.filtroClientes + "'?", this.clientes[i].nombre.toUpperCase().includes(this.filtroClientes));
 		  if (this.clientes[i].nombre.toUpperCase().includes(this.filtroClientes)){
 			filtrados.push(this.clientes[i]);
 		  }
@@ -164,47 +173,36 @@ export class ReparacionDetalleComponent implements OnInit {
 		}
 	}
 
-	actualizar(){
-		Swal.fire({
-		title: '¿Seguro que desea continuar?',
-		text: "No podrá revertir los cambios!",
-		icon: 'warning',
-		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
-		confirmButtonText: 'Aceptar'
-		}).then((result) => {
-			if (result.value) {
-				var reparacionActulizada: any;
-				reparacionActulizada = {}; 
-				reparacionActulizada.id = this.form.idReparacion.value;
-				reparacionActulizada.fechaEntrada = this.form.fechaEntrada.value;
-				reparacionActulizada.fechaSalida = this.form.fechaSalida.value;
-				reparacionActulizada.cliente = this.form.selectCliente.value;
-				reparacionActulizada.descripcionVehiculo = this.form.marca.value+" |"+this.form.modelo.value+" |"+this.form.dominio.value.toUpperCase();
-				reparacionActulizada.estado = this.form.selectEstado.value;
-				reparacionActulizada.descripcion = this.form.descripcion.value;
-				reparacionActulizada.costoTotal = this.form.costo.value;
-				console.log(reparacionActulizada);
-				this.servicioReparacion.actualizar(reparacionActulizada).subscribe((rta) => {
-					Swal.fire({
-						icon: 'success',
-						title: 'Reparación guardada',
-						text: 'La reparación ha sido guardada en la BD exitosamente',
-						confirmButtonText: 'Aceptar',
-						confirmButtonColor: '#0D6EFD',
-					})
-					this.router.navigate(["reparaciones"]);
-				}, (error) => {
-					Swal.fire({
-						icon: 'error',
-						title: 'Error al guardar',
-						text: 'Se produjo un error al intentar guardar la reparación',
-						confirmButtonText: 'Aceptar',
-						confirmButtonColor: '#0D6EFD',
-					})
-				});
-			}
-		}) 
+	actualizar() {
+		var reparacionActulizada: any;
+		reparacionActulizada = {};
+		reparacionActulizada.id = this.form.idReparacion.value;
+		reparacionActulizada.fechaEntrada = this.form.fechaEntrada.value;
+		reparacionActulizada.fechaSalida = this.form.fechaSalida.value;
+		reparacionActulizada.cliente = this.form.selectCliente.value;
+		reparacionActulizada.descripcionVehiculo = this.form.marca.value + " |" + this.form.modelo.value + " |" + this.form.dominio.value.toUpperCase();
+		reparacionActulizada.estado = this.form.selectEstado.value;
+		reparacionActulizada.descripcion = this.form.descripcion.value;
+		reparacionActulizada.costoTotal = this.form.costo.value;
+		console.log(reparacionActulizada);
+		this.servicioReparacion.actualizar(reparacionActulizada).subscribe((rta) => {
+			Swal.fire({
+				icon: 'success',
+				title: 'Reparación guardada',
+				text: 'La reparación ha sido guardada en la BD exitosamente',
+				confirmButtonText: 'Aceptar',
+				confirmButtonColor: '#0D6EFD',
+			})
+			this.router.navigate(["reparaciones"]);
+		}, (error) => {
+			Swal.fire({
+				icon: 'error',
+				title: 'Error al guardar',
+				text: 'Se produjo un error al intentar guardar la reparación',
+				confirmButtonText: 'Aceptar',
+				confirmButtonColor: '#0D6EFD',
+			})
+		});
+
 	}
 }

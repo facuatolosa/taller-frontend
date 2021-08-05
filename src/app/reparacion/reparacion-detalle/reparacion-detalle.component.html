@@ -141,11 +141,11 @@
 		</div>
 
 		<p></p>
-		<div class="form-group" *ngIf="!modoEditar">
-			<button class="btn btn-primary" id="btnEditar">{{btnModoText}}</button>
+		<div *ngIf="!modoEditar">
+			<button class="btn btn-primary" id="btnEditar">Editar</button>
 		</div>
 		<div class="form-group" *ngIf="modoEditar">
-			<button class="btn btn-success" id="btnGuardar">{{btnModoText}}</button>
+			<button class="btn btn-success" id="btnGuardar" (ngSubmit)="onSubmit()">{{btnModoText}}</button>
 		</div>
 
 	</form>
