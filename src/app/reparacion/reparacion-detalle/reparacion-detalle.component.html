@@ -23,7 +23,7 @@
 					<div class="input-group mb-3">
 						<span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
 						<input class="form-control" type="date" min="{{fechaActualFormateada}}" id="fechaEntrada" formControlName="fechaEntrada"
-						[ngClass]="{ 'is-invalid' : enviado && formulario.controls.fechaEntrada.errors }" readonly="{{!modoEditar}}">
+						[ngClass]="{ 'is-invalid' : enviado && formulario.controls.fechaEntrada.errors }">
 					</div>
 					<div *ngIf="enviado && formulario.controls.fechaEntrada.errors" class="invalid-feedback">
 						<div *ngIf="formulario.controls.fechaEntrada.errors.required">Debe seleccionar una fecha de entrada</div>
@@ -35,8 +35,7 @@
 				<div class="col">
 					<div class="input-group mb-3">
 						<span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
-						<input class="form-control" type="date" min="{{fechaActualFormateada}}" id="fechaSalida" formControlName="fechaSalida"
-						readonly="{{!modoEditar}}">
+						<input class="form-control" type="date" min="{{fechaActualFormateada}}" id="fechaSalida" formControlName="fechaSalida">
 					</div>
 				</div>
 			</div>
@@ -49,7 +48,7 @@
 				<span class="input-group-text"><i class="fas fa-user"></i></span>
 				<input type="text" class="form-control" (keyup)="keyPress($event)"
 					aria-label="Recipient's username" aria-describedby="basic-addon2" id="nombreCliente" formControlName="nombreCliente"
-					[ngClass]="{ 'is-invalid' : enviado && formulario.controls.nombreCliente.errors }" readonly="{{!modoEditar}}">
+					[ngClass]="{ 'is-invalid' : enviado && formulario.controls.nombreCliente.errors }">
 				<span class="btn btn-secondary" id="btn-buscar" (click)="buscar()" *ngIf="modoEditar"> <i class="fas fa-search"></i> Buscar </span>
 			</div>
 			<div *ngIf="enviado && formulario.controls.nombreCliente.errors" class="invalid-feedback">
@@ -71,13 +70,13 @@
 				<span class="input-group-text"><i class="fas fa-car"></i></span>
 				<span class="input-group-text" id="subspan">Marca</span>
 				<input type="text" class="form-control" placeholder="Ej. Renault"  formControlName="marca" 
-				[ngClass]="{ 'is-invalid' : enviado && formulario.controls.marca.errors }" readonly="{{!modoEditar}}">
+				[ngClass]="{ 'is-invalid' : enviado && formulario.controls.marca.errors }">
 				<span class="input-group-text" id="subspan">Modelo</span>
 				<input type="text" class="form-control" placeholder="Ej. Clio Mio 1.6" formControlName="modelo" 
-				[ngClass]="{ 'is-invalid' : enviado && formulario.controls.marca.errors }" readonly="{{!modoEditar}}">
+				[ngClass]="{ 'is-invalid' : enviado && formulario.controls.marca.errors }">
 				<span class="input-group-text" id="subspan">Patente</span>
 				<input type="text" class="form-control" placeholder="Ej. NPQ957" formControlName="dominio" 
-				[ngClass]="{ 'is-invalid' : enviado && formulario.controls.marca.errors }" readonly="{{!modoEditar}}">
+				[ngClass]="{ 'is-invalid' : enviado && formulario.controls.marca.errors }">
 			</div>
 			<div *ngIf="enviado && formulario.controls.marca.errors" class="invalid-feedback">
 				<div *ngIf="formulario.controls.marca.errors.required">Debe ingresar la marca del vehículo.</div>
@@ -101,7 +100,7 @@
 			<div class="input-group mb-3">
 				<span class="input-group-text"><i class="fas fa-cogs"></i></span>
 				<input type="text" class="form-control" placeholder="Ingrese el estado"	aria-describedby="basic-addon2" 
-				id="estado" formControlName="estado"readonly="{{!modoEditar}}" *ngIf="!modoEditar">
+				id="estado" formControlName="estado" *ngIf="!modoEditar">
 				<select class="form-control form-select" id="estados" formControlName="selectEstado" *ngIf="modoEditar">
 					<option [ngValue]="estado" *ngFor="let estado of estados">{{estado.nombre}}</option>
 				</select>
@@ -113,7 +112,7 @@
 			<div>
 				<div class="input-group">
 					<textarea class="form-control" aria-label="With textarea" placeholder="Ingrese la descripción de la reparación aquí." formControlName="descripcion" 
-						[ngClass]="{ 'is-invalid' : enviado && formulario.controls.descripcion.errors }" readonly="{{!modoEditar}}">
+						[ngClass]="{ 'is-invalid' : enviado && formulario.controls.descripcion.errors }">
 					</textarea>
 				</div>
 			</div>
@@ -131,7 +130,7 @@
 			<div class="input-group mb-3">
 				<span class="input-group-text"><b>$</b></span>
 				<input type="number" class="form-control" placeholder="Ingrese el valor del servicio" id="costo"  formControlName="costo"
-				[ngClass]="{ 'is-invalid' : enviado && formulario.controls.costo.errors }" min="0" readonly="{{!modoEditar}}">
+				[ngClass]="{ 'is-invalid' : enviado && formulario.controls.costo.errors }" min="0">
 				<span class="input-group-text">.00</span>
 			</div>
 			<div *ngIf="enviado && formulario.controls.costo.errors" class="invalid-feedback">

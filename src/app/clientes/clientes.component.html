@@ -1,0 +1,60 @@
+<app-header></app-header>
+<div class="container">
+	<p></p>
+	<h2>Clientes</h2>
+	<form [formGroup]="clientesForm">
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" placeholder="Ingrese su búsqueda..." formControlName="filtro" (keyup)="keyPress($event)">
+			<button class="btn btn-secondary" type="button" (click)="filtrar()" id="btn-buscar">Buscar</button>
+			<button class="btn btn-danger" type="button" (click)="limpiar()" id="btn-limpiar">Limpiar</button>
+			<button class="btn btn-success" type="button" (click)="nuevoCliente()" id="btn-nuevo">Nuevo</button>
+		</div>
+	</form>
+	<table class="table table-hover table-striped" id="tablaClientes" style="border-radius: 10%px;">
+		<thead>
+			<tr>
+				<th scope="col" (click)="ordenar('id')">#</th>
+				<th scope="col" >Nombre</th>
+				<th scope="col" >Apellido</th>
+				<th scope="col" >Fecha Nacimiento</th>
+				<th scope="col" >DNI</th>
+				<th scope="col" >Teléfono</th>
+				<th scope="col" >E-mail</th>
+				<th scope="col" ></th>
+				<th scope="col" ></th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let c of clientes">
+				<th scope="row">{{c.id}}</th>
+				<td>{{c.nombre}}</td>
+				<td>{{c.apellido}}</td>
+				<td>{{c.fechaNacimiento | date : 'dd/MM/yyyy'}}</td>
+				<td>{{c.nroDNI}}</td>
+				<td>{{c.telefono}}</td>
+				<td>{{c.correoElectronico}}</td>
+				<!-- <td>{{c.estado.nombre}}</td> -->
+
+				<td><button type="button" class="btn btn-outline-primary" (click)="ver(c.id)">Ver</button></td>
+				<td><button type="button" class="btn btn-outline-danger" (click)="eliminar(c.id)">Eliminar</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- <nav aria-label="..." id="pagination">
+		<ul class="pagination">
+		  <li class="page-item disabled">
+			<a class="page-link" href="#" tabindex="-1">Previous</a>
+		  </li>
+		  <li class="page-item"><a class="page-link" href="#">1</a></li>
+		  <li class="page-item active">
+			<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+		  </li>
+		  <li class="page-item"><a class="page-link" href="#">3</a></li>
+		  <li class="page-item">
+			<a class="page-link" href="#">Next</a>
+		  </li>
+		</ul>
+	</nav> -->
+</div>
+<app-footer></app-footer>

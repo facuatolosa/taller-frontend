@@ -38,7 +38,6 @@ export class ReparacionDetalleComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.modoEditar = false;
-		console.log("Modo en el onInit():",this.modoEditar);
 		if (this.modoEditar){
 			this.btnModoText="Guardar";
 			this.titulo = "Editar Reparación";
@@ -81,6 +80,20 @@ export class ReparacionDetalleComponent implements OnInit {
 			this.form.estado.setValue(this.reparacion.estado.nombre);
 			this.form.descripcion.setValue(this.reparacion.descripcion);
 			this.form.costo.setValue(this.reparacion.costoTotal);
+			this.servicioClientes.pedirClientes().subscribe((rta: any) => {
+				this.clientes = rta.content;
+				this.clientesFiltrados = rta.content;
+				console.log("Clientes:", rta.content);
+			}, (error) => {
+				console.log("Error clientes: ", error);
+			});
+			this.form.selectCliente.setValue(this.clientes);
+			this.servicioEstados.pedirEstados().subscribe((rta) => {
+				this.estados = rta;
+			}, (error) => {
+				console.log("Error estados: ", error);
+			});
+			this.form.selectEstado.setValue(this.estados);
 		}, (error) => {
 			console.log(error);
 		});
@@ -109,6 +122,7 @@ export class ReparacionDetalleComponent implements OnInit {
 
 	onSubmit() {
 		this.cambiarModo(this.modoEditar);
+		
 	}
 
 	cambiarModo(modo:boolean) {
@@ -142,11 +156,6 @@ export class ReparacionDetalleComponent implements OnInit {
 		  }
 		}
 		return filtrados;
-	}
-
-	habilitarCampos(){
-		(document.getElementById('nombreCliente') as HTMLInputElement).readOnly=false;
-		(document.getElementById('costo') as HTMLInputElement).readOnly=false;
 	}
 
 	keyPress(evento: KeyboardEvent) {

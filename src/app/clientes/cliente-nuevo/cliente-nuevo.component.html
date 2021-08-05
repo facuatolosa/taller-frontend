@@ -10,90 +10,119 @@
         </div>
 
         <div class="form-group">
-            <label for="name_id" class="control-label">Nombres</label>
-            <input type="text" class="form-control" formControlName="nombre"
-                [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.nombre.errors }"
-                placeholder="Ingrese su nombre">
-            <div *ngIf="enviado && nuevoClienteForm.controls.nombre.errors" class="invalid-feedback">
-                <div *ngIf="nuevoClienteForm.controls.nombre.errors.required">Debe ingresar el nombre del cliente</div>
-                <div *ngIf="nuevoClienteForm.controls.nombre.errors.minlength">El nombre ingresado debe contener al
-                    menos
-                    {{nuevoClienteForm.controls.nombre.errors.minlength.requiredLength}} caracteres.</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="last_name_id" class="control-label">Apellidos</label>
-            <input type="text" class="form-control" formControlName="apellido"
-                [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.apellido.errors }"
-                placeholder="Ingrese su apellido">
-            <div *ngIf="enviado && nuevoClienteForm.controls.apellido.errors" class="invalid-feedback">
-                <div *ngIf="nuevoClienteForm.controls.apellido.errors.required">Debe ingresar el apellido del cliente.</div>
-                <div *ngIf="nuevoClienteForm.controls.apellido.errors.minlength">El apellido ingresado contener al menos
-                    {{nuevoClienteForm.controls.apellido.errors.minlength.requiredLength}} caracteres.</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="documento" class="control-label">Documento</label>
-            <input type="number" class="form-control" formControlName="documento" min="1000000" max="99999999"
-                [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.documento.errors }"
-                placeholder="Ingrese su número de documento">
-            <div *ngIf="enviado && nuevoClienteForm.controls.documento.errors" class="invalid-feedback">
-                <div *ngIf="nuevoClienteForm.controls.documento.errors.required">Debe ingresar el número de DNI del cliente.</div>
-                <div *ngIf="nuevoClienteForm.controls.documento.errors.min">El número de DNI debe contener al menos
-                    {{this.nuevoClienteForm.controls.documento.errors.min.min.toString().length}} dígitos.</div>
-                <div *ngIf="nuevoClienteForm.controls.documento.errors.max">El número de DNI debe contener como máximo
-                    {{this.nuevoClienteForm.controls.documento.errors.max.max.toString().length}} dígitos.</div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="adress" class="control-label">Dirección</label>
+            <label class="control-label">Nombre Completo</label>
             <div class="input-group mb-3">
-                <span class="input-group-text">Calle</span>
-                <input type="text" class="form-control" formControlName="direccion"
-                    [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.direccion.errors }" placeholder="Ej. Buenos Aires">
-                <div *ngIf="enviado && nuevoClienteForm.controls.direccion.errors" class="invalid-feedback">
-                    <div *ngIf="nuevoClienteForm.controls.direccion.errors.required">Debe ingresar la calle del cliente.</div>
+                <span class="input-group-text">Nombre</span>
+                <input type="text" class="form-control" formControlName="nombre"
+                    [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.nombre.errors }"
+                    placeholder="Ingrese su nombre">
+                <div *ngIf="enviado && nuevoClienteForm.controls.nombre.errors" class="invalid-feedback">
+                    <div *ngIf="nuevoClienteForm.controls.nombre.errors.required">Debe ingresar el nombre del cliente</div>
+                    <div *ngIf="nuevoClienteForm.controls.nombre.errors.minlength">El nombre ingresado debe contener al menos
+                        {{nuevoClienteForm.controls.nombre.errors.minlength.requiredLength}} caracteres.</div>
                 </div>
-                <span class="input-group-text">Altura</span>
-                <input type="text" class="form-control" formControlName="codPostal"
-                    [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.codPostal.errors }" placeholder="Ej. 315">
-                <div *ngIf="enviado && nuevoClienteForm.controls.codPostal.errors" class="invalid-feedback">
-                    <div *ngIf="nuevoClienteForm.controls.codPostal.errors.required">Debe ingresar la altura de la calle del cliente.</div>
+                <span class="input-group-text">Apellido</span>
+                <input type="text" class="form-control" formControlName="apellido"
+                    [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.apellido.errors }"
+                    placeholder="Ingrese su apellido">
+                <div *ngIf="enviado && nuevoClienteForm.controls.apellido.errors" class="invalid-feedback">
+                    <div *ngIf="nuevoClienteForm.controls.apellido.errors.required">Debe ingresar el apellido del cliente.</div>
+                    <div *ngIf="nuevoClienteForm.controls.apellido.errors.minlength">El apellido ingresado contener al menos
+                        {{nuevoClienteForm.controls.apellido.errors.minlength.requiredLength}} caracteres.</div>
                 </div>
             </div>
         </div>
 
         <div class="form-group">
+            <label class="control-label" style="width: 50%;">Documento</label>
+            <label class="control-label" style="width: 50%;">Fecha Nacimiento</label>
             <div class="input-group mb-3">
-                <span class="input-group-text">Provincia</span>
-                <select class="form-control" id="state_id">
-                    <option value="">Buenos Aires</option>
-                    <option value="">Córdoba</option>
-                    <option value="">Mendoza</option>
-                    <option value="">La Pampa</option>
-                    <option value="">Santa Fe</option>
-                    <option value="">Santiago Del Estero</option>
-                </select>
-                <span class="input-group-text">Localidad</span>
-                <select class="form-control" id="city_id">
-                    <option value="5900">Villa María</option>
-                    <option value="5915">Carrilobo</option>
-                    <option value="5940">Las Varillas</option>
-                    <option value="5913">Pozo Del Molle</option>
-                    <option value="2563">Noetinger</option>
-                </select>
+                <span class="input-group-text">DNI</span>
+                <input type="number" class="form-control" formControlName="documento" min="1000000" max="99999999"
+                    [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.documento.errors }"
+                    placeholder="Ingrese su número de documento">
+                <div *ngIf="enviado && nuevoClienteForm.controls.documento.errors" class="invalid-feedback">
+                    <div *ngIf="nuevoClienteForm.controls.documento.errors.required">Debe ingresar el número de DNI del cliente.</div>
+                    <div *ngIf="nuevoClienteForm.controls.documento.errors.min">El número de DNI debe contener al menos
+                        {{this.nuevoClienteForm.controls.documento.errors.min.min.toString().length}} dígitos.</div>
+                    <div *ngIf="nuevoClienteForm.controls.documento.errors.max">El número de DNI debe contener como máximo
+                        {{this.nuevoClienteForm.controls.documento.errors.max.max.toString().length}} dígitos.</div>
+                </div>
+                <span class="input-group-text">Fecha</span>
+                <input type="date" class="form-control" formControlName="fechaNacimiento" min="1940-01-01" max="2005-01-01"
+                    [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.fechaNacimiento.errors }">
+                <div *ngIf="enviado && nuevoClienteForm.controls.fechaNacimiento.errors" class="invalid-feedback">
+                    <div *ngIf="nuevoClienteForm.controls.fechaNacimiento.errors.required">Debe ingresar la fecha de nacimiento del cliente.</div>
+                </div>
             </div>
-        </div>
 
-        <p></p>
-        <div class="form-group">
-            <button class="btn btn-success" type="submit" class="btn btn-primary">Guardar</button>
+            <div class="form-group">
+                <label for="adress" class="control-label">Dirección</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Calle</span>
+                    <input type="text" class="form-control" formControlName="calle"
+                        [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.calle.errors }"
+                        placeholder="Ej. Buenos Aires">
+                    <div *ngIf="enviado && nuevoClienteForm.controls.calle.errors" class="invalid-feedback">
+                        <div *ngIf="nuevoClienteForm.controls.calle.errors.required">Debe ingresar la calle del cliente.</div>
+                    </div>
+                    <span class="input-group-text">Altura</span>
+                    <input type="text" class="form-control" formControlName="alturaCalle" placeholder="Ej. 315"
+                        [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.alturaCalle.errors }">
+                    <div *ngIf="enviado && nuevoClienteForm.controls.alturaCalle.errors" class="invalid-feedback">
+                        <div *ngIf="nuevoClienteForm.controls.alturaCalle.errors.required">Debe ingresar la altura de la calle del cliente.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Provincia</span>
+                    <select class="form-control" id="provincias" formControlName="selectProvincias">
+                        <option value="Bs. As.">Buenos Aires</option>
+                        <option value="Cba.">Córdoba</option>
+                        <option value="Mza">Mendoza</option>
+                        <option value="La Pampa">La Pampa</option>
+                        <option value="Sta. Fe">Santa Fe</option>
+                        <option value="Sgo. del Estero">Santiago Del Estero</option>
+                    </select>
+                    <span class="input-group-text">Localidad</span>
+                    <select class="form-control" id="ciudades" formControlName="selectCiudades">
+                        <option value="Villa María">Villa María</option>
+                        <option value="Carrilobo">Carrilobo</option>
+                        <option value="Las Varillas">Las Varillas</option>
+                        <option value="Pozo Del Molle">Pozo Del Molle</option>
+                        <option value="Noetinger">Noetinger</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Datos de contacto</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Teléfono</span>
+                    <input type="text" class="form-control" formControlName="telefono" placeholder="Ej. (0353) 154281043"
+                        [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.telefono.errors }">
+                    <div *ngIf="enviado && nuevoClienteForm.controls.telefono.errors" class="invalid-feedback">
+                        <div *ngIf="nuevoClienteForm.controls.telefono.errors.required">Debe ingresar el número de teléfono del cliente</div>
+                        <div *ngIf="nuevoClienteForm.controls.telefono.errors.pattern">El formato de teléfono ingresado no es correcto.</div>
+                    </div>
+                    <span class="input-group-text">E-mail</span>
+                    <input type="email" class="form-control" formControlName="correoElectronico" placeholder="Ingrese el e-mail del cliente"
+                        [ngClass]="{ 'is-invalid' : enviado && nuevoClienteForm.controls.correoElectronico.errors }">
+                    <div *ngIf="enviado && nuevoClienteForm.controls.correoElectronico.errors" class="invalid-feedback">
+                        <div *ngIf="nuevoClienteForm.controls.correoElectronico.errors.pattern">El formato de e-mail ingresado no es correcto.</div>
+                    </div>
+                </div>
+            </div>
+
+            <p></p>
+            <div class="form-group">
+                <button class="btn btn-success" type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+
         </div>
     </form>
-
 </div>
 
 <app-footer></app-footer>

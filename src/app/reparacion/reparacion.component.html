@@ -20,6 +20,7 @@
 				<th scope="col" (click)="ordenar('fechaEntrada')">Fecha Entrada </th>
 				<th scope="col" (click)="ordenar('fechaSalida')">Fecha Salida </th>
 				<th scope="col"></th>
+				<th scope="col"></th>
 
 			</tr>
 		</thead>
@@ -32,12 +33,10 @@
 				<td>{{r.fechaEntrada | date : 'dd/MM/yyyy'}}</td>
 				<td>{{r.fechaSalida | date : 'dd/MM/yyyy'}}</td>
 
-				<td><button type="button" class="btn btn-primary" (click)="ver(r.id)">Ver</button></td>
+				<td><button type="button" class="btn btn-outline-primary" (click)="ver(r.id)">Ver</button></td>
+				<td><button type="button" class="btn btn-outline-danger" (click)="eliminar(r.id)">Eliminar</button></td>
 			</tr>
 		</tbody>
-		<!-- <tfoot>
-			Listado de Reparaciones
-		</tfoot> -->
 	</table>
 </div>
 <app-footer></app-footer>

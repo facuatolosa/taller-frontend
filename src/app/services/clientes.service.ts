@@ -9,8 +9,27 @@ export class ClientesService {
 
   constructor(private http: HttpClient) { }
 
-  pedirClientes() {
-    return this.http.get(environment.url + 'clientes/?sort=apellido,asc');
-  }
+  	pedirClientes() {
+    	return this.http.get(environment.url + 'clientes/?sort=apellido,asc');
+  	}
+
+  	pedirCliente(id:number) {
+	  return this.http.get(environment.url + 'clientes/' + id);
+	}
+	
+	pedirClientesFiltradosPorNombre(filtro: string, estrategia?: string, orden?: string) {
+		if (orden) {
+			return this.http.get(environment.url + 'clientes/filtrar?nombre=' + filtro + '&apellido=' + '&sort=' + estrategia + orden);
+		}
+		return this.http.get(environment.url + 'clientes/filtrar?nombre=' + filtro + '&apellido=');
+	}
+
+  	guardar(nuevoCliente: any) {
+		return this.http.post(environment.url + 'clientes/', nuevoCliente);
+	}
+
+	eliminarCliente(id:number) {
+		return this.http.delete(environment.url + 'clientes/' + id);
+	}
 
 }

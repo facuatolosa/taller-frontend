@@ -92,11 +92,17 @@ export class ReparacionNuevaComponent implements OnInit {
         nuevaReparacion.cliente = this.form.selectCliente.value;
         nuevaReparacion.descripcionVehiculo = this.form.marca.value+" |"+this.form.modelo.value+" |"+this.form.dominio.value.toUpperCase();
         nuevaReparacion.estado = this.form.selectEstado.value;
-        console.log("Estado:",this.form.selectEstado.value);
         nuevaReparacion.descripcion = this.form.descripcion.value;
         nuevaReparacion.costoTotal = this.form.costo.value;
         console.log(nuevaReparacion);
         this.servicioReparacion.guardar(nuevaReparacion).subscribe((rta) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Reparación guardada',
+            text: 'La reparación ha sido guardada en la BD exitosamente',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#0D6EFD',
+          })
           this.router.navigate(["reparaciones"]);
         }, (error) => {
           Swal.fire({

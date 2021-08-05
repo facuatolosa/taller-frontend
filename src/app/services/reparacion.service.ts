@@ -15,7 +15,7 @@ export class ReparacionService {
 	}
 	
 	pedirReparaciones() {
-		return this.http.get(environment.url + 'reparaciones');
+		return this.http.get(environment.url + 'reparaciones/?sort=id,asc');
 	}
 
 	pedirReparacionesFiltradasPorNombre(filtro: string, orden?: string) {
@@ -33,8 +33,7 @@ export class ReparacionService {
 		return this.http.put(environment.url + 'reparaciones/' + reparacion.id, reparacion);
 	}
 
-	get(id: string) {
-		return this.http.get(environment.url + 'reparaciones/' + id);
+	eliminarReparacion(id:number) {
+		return this.http.delete(environment.url + 'reparaciones/' + id);
 	}
-
 }

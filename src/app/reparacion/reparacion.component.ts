@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { ReparacionService } from '../services/reparacion.service';
 @Component({
   selector: 'app-reparacion',
@@ -22,14 +23,13 @@ export class ReparacionComponent implements OnInit {
       filtro: ['']
     });
 
-    // Debo pedir los dominios al backend
     this.cargarDatos();
   }
 
   cargarDatos() {
-    this.servicioReparaciones.pedirReparaciones().subscribe((rta) => {
-      console.log(rta);
-      this.reparaciones = rta;
+    this.servicioReparaciones.pedirReparaciones().subscribe((rta:any) => {
+      // console.log(rta.content);
+      this.reparaciones = rta.content;
       for (let i = 0; i < this.reparaciones.length; i++) {
         this.reparaciones[i].descripcionVehiculo = this.reparaciones[i].descripcionVehiculo.split('|').join('');
         // console.log(this.reparaciones[i]);
@@ -56,6 +56,41 @@ export class ReparacionComponent implements OnInit {
     }, (error) => {
       console.log(error);
     });
+  }
+
+  eliminar(id: number) {
+    Swal.fire({
+      title: '¿Seguro que desea continuar?',
+      text: "No podrá revertir los cambios!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar'
+    }).then((result) => {
+      if (result.value) {
+        this.servicioReparaciones.eliminarReparacion(id).subscribe((rta: any) => {
+          console.log(rta);
+          Swal.fire({
+            icon: 'success',
+            title: 'Reparación eliminada',
+            text: 'La reparación ha sido eliminada de la BD exitosamente',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#0D6EFD',
+          }) 
+          window.location.reload();
+        }, (error) => {
+          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'La reparación no ha podido ser eliminada',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#0D6EFD',
+          })
+        });
+      }
+    })
   }
 
   get f() {
@@ -94,13 +129,8 @@ export class ReparacionComponent implements OnInit {
   ordenar(estrategia: string) {
     if (estrategia === 'nombre') {
       this.orderNombreDesc = !this.orderNombreDesc;
-      console.log("Nombre Order Value: " + this.orderNombreDesc);
       this.filtrarImpl(this.f.filtro.value, estrategia, this.orderNombreDesc ? 'nombre,desc' : 'nombre,asc');
-    } else if (estrategia === 'id'){
-      this.orderIDDesc = !this.orderIDDesc;
-      console.log("ID Order Value: " + this.orderIDDesc);
-      this.filtrarImpl(this.f.filtro.value, estrategia, this.orderIDDesc ? 'id,desc' : 'id,asc');
-    }
+    } 
   }
 
   

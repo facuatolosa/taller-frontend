@@ -1,5 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ClienteNuevoComponent } from '../clientes/cliente-nuevo/cliente-nuevo.component';
+import { ClientesComponent } from '../clientes/clientes.component';
 import { InicioComponent } from '../inicio/inicio.component';
 import { LoginComponent } from '../login/login.component';
 import { ReparacionDetalleComponent } from '../reparacion/reparacion-detalle/reparacion-detalle.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
 	{ path: 'reparaciones', component: ReparacionComponent, canActivate: [Authguard] },
 	{ path: 'reparaciones/nueva', component: ReparacionNuevaComponent, canActivate: [Authguard] },
 	{ path: 'reparaciones/:id', component: ReparacionDetalleComponent, canActivate: [Authguard] },
+	{ path: 'clientes', component: ClientesComponent, canActivate: [Authguard] },
 	{ path: 'clientes/nuevo', component: ClienteNuevoComponent, canActivate: [Authguard] },
 	{ path: '**', redirectTo: 'reparaciones' },
 ];
