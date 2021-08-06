@@ -136,35 +136,17 @@ export class ClienteDetalleComponent implements OnInit {
     clientAct.fechaNacimiento = this.form.fechaNacimiento.value;
     clientAct.telefono = this.form.telefono.value;
     clientAct.correoElectronico = this.form.correoElectronico.value;
+    clientAct.estado = this.form.selectEstados.value;
     direccionAct.calle = this.form.calle.value;
     direccionAct.altura = this.form.alturaCalle.value;
-    direccionAct.localidad = this.form.localidad.value + ", " + this.form.provincia.value;
-    this.servicioDirecciones.guardar(direccionAct).subscribe((rta) => {
-      this.servicioDirecciones.traerUltima().subscribe((rta: any) => {
-        if (rta && rta.content) {
-          clientAct.direccion = rta.content[0];
-        } else {
-          clientAct.direccion = rta[0];
-        }
-      }, (error) => {
-        console.log(error);
-      });
-      clientAct.estado = this.form.selectEstados.value;
-    }, (error) => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error al guardar',
-        text: 'Se produjo un error al intentar guardar la direccion',
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#0D6EFD',
-      })
-    });
-    console.log(clientAct);
+    direccionAct.localidad = this.form.selectCiudades.value + ", " + this.form.selectProvincias.value;
+    clientAct.direccion = direccionAct;
+    debugger;
     this.servicioClientes.actualizar(clientAct).subscribe((rta) => {
       Swal.fire({
         icon: 'success',
-        title: 'Reparación guardada',
-        text: 'La reparación ha sido guardada en la BD exitosamente',
+        title: 'Cliente actualizado',
+        text: 'El cliente ha sido actualizado exitosamente',
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#0D6EFD',
       })
@@ -172,13 +154,12 @@ export class ClienteDetalleComponent implements OnInit {
     }, (error) => {
       Swal.fire({
         icon: 'error',
-        title: 'Error al guardar',
-        text: 'Se produjo un error al intentar guardar la reparación',
+        title: 'Error al actualizar',
+        text: 'Se produjo un error al intentar actualizar el cliente',
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#0D6EFD',
       })
     });
-
   }
 
   get form() {

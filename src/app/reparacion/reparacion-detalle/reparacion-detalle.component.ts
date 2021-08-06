@@ -190,7 +190,7 @@ export class ReparacionDetalleComponent implements OnInit {
 			Swal.fire({
 				icon: 'success',
 				title: 'Reparación guardada',
-				text: 'La reparación ha sido guardada en la BD exitosamente',
+				text: 'La reparación ha sido actualizada exitosamente',
 				confirmButtonText: 'Aceptar',
 				confirmButtonColor: '#0D6EFD',
 			})
@@ -198,8 +198,8 @@ export class ReparacionDetalleComponent implements OnInit {
 		}, (error) => {
 			Swal.fire({
 				icon: 'error',
-				title: 'Error al guardar',
-				text: 'Se produjo un error al intentar guardar la reparación',
+				title: 'Error al actualizar',
+				text: 'Se produjo un error al intentar actualizar la reparación',
 				confirmButtonText: 'Aceptar',
 				confirmButtonColor: '#0D6EFD',
 			})

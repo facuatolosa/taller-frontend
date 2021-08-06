@@ -60,65 +60,44 @@ export class ClienteNuevoComponent implements OnInit {
       if (result.value){
         var nuevoCliente: any = {};
         var nuevaDireccion: any = {};
+        var nuevoEstado: any = {};
+        nuevoEstado = {
+          "id": 1,
+          "nombre": "Activo",
+          "fechaCreacion": "2020-12-31",
+          "fechaModificacion": null,
+          "descripcion": "El cliente ha sido dado de alta y puede operar con regularidad"
+        }
         nuevaDireccion.calle = this.form.calle.value;
         nuevaDireccion.altura = this.form.alturaCalle.value;
         nuevaDireccion.localidad = this.form.selectCiudades.value + ", " + this.form.selectProvincias.value;
-        this.servicioDireccion.guardar(nuevaDireccion).subscribe((rta) => {
-          this.servicioDireccion.traerUltima().subscribe((rta: any) => {
-            if (rta && rta.content) {
-              nuevoCliente.direccion = rta.content[0];
-              console.log(rta.content[0]);
-            } else {
-              nuevoCliente.direccion = rta[0];
-              console.log(rta[0]);
-            }
-          }, (error) => {
-            console.log(error);
-          });
-
-          this.servicioEstados.pedirEstados().subscribe((rta) => {
-            this.estado = rta[0];
-            console.log(this.estado);
-          }, (error) => {
-            console.log("Error estados: ", error);
-          });
-
-          nuevoCliente.estado = this.estado;
-          console.log(this.estado);
-          nuevoCliente.nombre = this.form.nombre.value;
-          nuevoCliente.apellido = this.form.apellido.value;
-          nuevoCliente.nroDNI = this.form.documento.value;
-          nuevoCliente.fechaNacimiento = this.form.fechaNacimiento.value;
-          nuevoCliente.telefono = this.form.telefono.value;
-          nuevoCliente.correoElectronico = this.form.correoElectronico.value;
-          console.log(nuevoCliente);
-          this.servicioCliente.guardar(nuevoCliente).subscribe((rta) => {
-            // this.router.navigate(["clientes"]);
-            Swal.fire({
-              icon: 'success',
-              title: 'Cliente guardado',
-              text: 'El cliente ha sido guardado en la BD exitosamente',
-              confirmButtonText: 'Aceptar',
-              confirmButtonColor: '#0D6EFD',
-            })
-          }, (error) => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error al guardar',
-              text: 'Se produjo un error al intentar guardar la reparación',
-              confirmButtonText: 'Aceptar',
-              confirmButtonColor: '#0D6EFD',
-            })
-          });
+        nuevoCliente.nombre = this.form.nombre.value;
+        nuevoCliente.apellido = this.form.apellido.value;
+        nuevoCliente.nroDNI = this.form.documento.value;
+        nuevoCliente.fechaNacimiento = this.form.fechaNacimiento.value;
+        nuevoCliente.telefono = this.form.telefono.value;
+        nuevoCliente.correoElectronico = this.form.correoElectronico.value;
+        nuevoCliente.direccion = nuevaDireccion;
+        nuevoCliente.estado = nuevoEstado;
+        console.log(nuevoCliente);
+        this.servicioCliente.guardar(nuevoCliente).subscribe((rta) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Cliente guardado',
+            text: 'El cliente ha sido guardado en la BD exitosamente',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#0D6EFD',
+          })
+          this.router.navigate(["clientes"]);
         }, (error) => {
           Swal.fire({
-            title: 'Error al guardar la dirección',
-            text: 'Se produjo un error al intentar guardar la dirección',
             icon: 'error',
+            title: 'Error al guardar',
+            text: 'Se produjo un error al intentar guardar el cliente',
+            confirmButtonText: 'Aceptar',
             confirmButtonColor: '#0D6EFD',
-            confirmButtonText: 'Aceptar'
           })
-        })
+        });
       }
     })
   }

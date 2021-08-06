@@ -105,6 +105,7 @@ export class ClientesComponent implements OnInit {
         console.log(rta.content);
       } else {
         this.clientes = rta;
+        console.log(rta);
       }
     }, (error) => {
       console.log(error);
@@ -123,22 +124,9 @@ export class ClientesComponent implements OnInit {
   }
  
   ordenar(estrategia: string) {
-    if (estrategia === 'nombre') {
-      this.orderNombreDesc = !this.orderNombreDesc;
-      this.orderIDDesc, this.orderApellidoDesc, this.orderFechaNacDesc, this.orderDocumentoDesc = false;
-      this.filtrarImpl(this.f.filtro.value, estrategia, this.orderNombreDesc ? ',desc' : ',asc');
-    } else if (estrategia === 'id'){
+    if (estrategia === 'id') {
       this.orderIDDesc = !this.orderIDDesc;
-      this.orderNombreDesc, this.orderApellidoDesc, this.orderFechaNacDesc, this.orderDocumentoDesc = false;
-      this.filtrarImpl(this.f.filtro.value, estrategia, this.orderIDDesc ? ',desc' : ',asc');
-    } else if (estrategia === 'apellido'){
-      this.orderApellidoDesc = !this.orderApellidoDesc;
-      this.orderIDDesc, this.orderNombreDesc, this.orderFechaNacDesc, this.orderDocumentoDesc = false;
-      this.filtrarImpl(this.f.filtro.value, estrategia, this.orderApellidoDesc ? ',desc' : ',asc');
-    } else if (estrategia === 'fechaNacimiento'){
-      this.orderFechaNacDesc = !this.orderFechaNacDesc;
-      this.orderIDDesc, this.orderNombreDesc, this.orderApellidoDesc, this.orderDocumentoDesc = false;
-      this.filtrarImpl(this.f.filtro.value, estrategia, this.orderFechaNacDesc ? ',desc' : ',asc');
+      this.filtrarImpl(this.f.filtro.value, estrategia, this.orderNombreDesc ? ',desc' : ',asc');
     } 
   }
 
